@@ -1,4 +1,4 @@
 class Skill < ApplicationRecord
 
-  
+
 end
