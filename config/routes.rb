@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   # get 'pages/home'
   get 'pages/contact'
   # resources is encapsulate all popular route use
-  resources :blogs
+  resources :blogs do
+    member do
+      get :toggle_status
+    end
+  end
 
   # custom routes
   root to: 'pages#home' # localhost:3000
