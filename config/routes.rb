@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   resources :portfolios
-  get 'pages/home'
-  get 'pages/about'
+  # get 'pages/home'
+
   get 'pages/contact'
-  # resources is encapsulate all popular route use 
+  # resources is encapsulate all popular route use
   resources :blogs
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # custom routes
+  root to: 'pages#home' # localhost:3000
+  get 'about-me', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+
 end
