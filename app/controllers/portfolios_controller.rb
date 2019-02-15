@@ -1,6 +1,14 @@
 class PortfoliosController < ApplicationController
   def index
+
+      # angular ประกาศไว้ที่ model select เฉพาะ subtitle angular
+    # @portfolio_items = Portfolio.angular
+    # @portfolio_items = Portfolio.ruby_on_rails_portfolio_items
     @portfolio_items = Portfolio.all
+  end
+
+  def angular
+    @angular_portfolio_items = Portfolio.angular
   end
 
   def show
@@ -9,10 +17,11 @@ class PortfoliosController < ApplicationController
 
   def new
     @portfolio_item = Portfolio.new
+    3.times { @portfolio_item.technologies.build } # build => create 3 version of technology
   end
 
   def create
-    @portfolio_item = Portfolio.new( params.require(:portfolio).permit(:title, :subtitle, :body))
+    @portfolio_item = Portfolio.new( params.require(:portfolio).permit(:title, :subtitle, :body, technologies_attributes: [:name]))
 
     respond_to do |format|
       if @portfolio_item.save

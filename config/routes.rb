@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :portfolios, except: [:show]
+  get 'angular-items', to: 'portfolios#angular'
   # get 'pages/home'
   get 'pages/contact'
   # resources is encapsulate all popular route use
@@ -15,4 +16,5 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
 
   get 'portfolio/:id', to: 'portfolios#show', as: 'portfolio_show'
+
 end
