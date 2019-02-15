@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   # before_action >> จะทำ method set_blog ก่อน
-  before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  before_action :set_blog, only: [:show, :edit, :update, :destroy, :toggle_status]
 
   # GET /blogs
   # GET /blogs.json
@@ -69,15 +69,27 @@ class BlogsController < ApplicationController
     end
   end
 
+  def toggle_status
+     # byebug if allows yout to stop your system and then ask the system about itself while it's running
+    # byebug
+    if @blog.draft?
+      @blog.published!
+    elsif @blog.published?
+      @blog.draft!
+    end
+    redirect_to blogs_url, notice: 'Post status has been updated'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
-      @blog = Blog.find(params[:id])
+      # friendly for also help lookup in slug
+      @blog = Blog.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      # it is submit in the form update or create 
+      # it is submit in the form update or create
       params.require(:blog).permit(:title, :body)
     end
 end
